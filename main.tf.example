@@ -1,0 +1,28 @@
+provider "aws" {
+  region = "eu-west-1"
+}
+
+resource "aws_key_pair" "<pk>" {
+  key_name   = "<pk>-key"
+  public_key = "<your_pk>"
+}
+
+module "salt" {
+  source = "./modules/salt"
+  ssh_key = "<pk>-key"
+  vpc_id = "<your_vpc>"
+  subnet_id = "<your_subnet>"
+  ip = "<salt_master_ip>"
+}
+
+module "redis" {
+  source = "./modules/redis"
+  ssh_key = "<pk>-key"
+  vpc_id = "<your_vpc>"
+  subnet_id = "<your_subnet>"
+  salt_master_ip = "${module.salt.private_ip}"
+  ips = {
+    "0" = "<list_of_redis_cluster_nodes_ips>"
+  }
+  nodes_count = 1
+}
