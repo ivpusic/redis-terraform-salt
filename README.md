@@ -1,5 +1,5 @@
 # redis-terraform-salt
-Terraform configuration to create infrastructure for Redis 4 cluster which are going to be provisioned by salt
+Terraform configuration to create infrastructure for Redis 4 cluster which is going to be provisioned by salt
 
 ### Directory structure
 - `salt` (saltstack formula to provision minions with redis 4)
